@@ -12,7 +12,14 @@ function App() {
 
   const deleteProductList = async (id) => {
     await axios.delete(`http://localhost:4001/products/${id}`);
-    getProductList();
+    try {
+      const newProductList = productList.filter((item) => {
+        return item.id !== id;
+      });
+      getProductList(newProductList);
+    } catch {
+      console.log("ERROR"); // ถ้าไม่สำเร็จโชว์ข้อความ error เพื่อลดการสร้าง request ข้อมูล
+    }
   };
 
   useEffect(() => {
@@ -25,31 +32,29 @@ function App() {
         <h1 className="app-title">Products</h1>
 
         {productList.map((product) => (
-          <div className="product-list" key={product.id}>
-            <div className="product">
-              <div className="product-preview">
-                <img
-                  src={product.image}
-                  alt="some product"
-                  width="350"
-                  height="350"
-                />
-              </div>
-              <div className="product-detail">
-                <h1>Product name: {product.name}</h1>
-                <h2>Product price: {product.price} Baht</h2>
-                <p>Product description: {product.description}</p>
-              </div>
-
-              <button
-                className="delete-button"
-                onClick={() => {
-                  deleteProductList(product.id);
-                }}
-              >
-                x
-              </button>
+          <div className="product" key={product.id}>
+            <div className="product-preview">
+              <img
+                src={product.image}
+                alt="some product"
+                width="350"
+                height="350"
+              />
             </div>
+            <div className="product-detail">
+              <h1>Product name: {product.name}</h1>
+              <h2>Product price: {product.price} Baht</h2>
+              <p>Product description: {product.description}</p>
+            </div>
+
+            <button
+              className="delete-button"
+              onClick={() => {
+                deleteProductList(product.id);
+              }}
+            >
+              x
+            </button>
           </div>
         ))}
       </div>
