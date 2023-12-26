@@ -8,3 +8,10 @@
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
 }
+.product-preview{
+  position: relative;
+}
+.delete-button{
+  position: absolute;
+  
+}
