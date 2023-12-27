@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import "./App.css";
 
 function App() {
-  
   const [productData, setProductData] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -11,7 +10,7 @@ function App() {
     try {
       const response = await axios.get("http://localhost:4001/products");
       setProductData(response.data.data);
-      console.log(response)
+      console.log(response);
     } catch (error) {
       console.error("Error fetching product data:", error.message);
     } finally {
